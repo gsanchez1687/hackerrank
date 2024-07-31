@@ -75,20 +75,76 @@ dump(calculateSum(calculateSum($data)));
 //la suma maxima es 3 + 5 + 7 + 9 = 24
 
 function miniMaxSum($arr) {
-    $min = 1;
-    $max = 1;
+   
+    //inicializar la suma
     $sum = 0;
-    foreach($arr as $value){
+    $min = 0;
+    $max = 0;
+    //ordenar el array
+    sort($arr);
+    //obter el primer arreglo
+    $min = $arr[0];
+    //obtener el ultimo del arreglo
+    $max = $arr[count($arr) - 1];
+    dump($min, $max);
+    foreach ($arr as $value) {
         $sum += $value;
-        if($value < $min){
-            $min = $value;
-        }
-        if($value > $max){
-            $max = $value;
-        }
     }
-    dump($min);
     return ($sum - $max) . " " . ($sum - $min);
 }
 
 dump(miniMaxSum([1, 2, 3, 4, 5]));
+
+
+//contar cuantas velas son las mas altas
+function birthdayCakeCandles($candles){
+    $max = max($candles);
+    $count = 0;
+    foreach($candles as $value){
+        if($value == $max){
+            $count++;
+        }
+    }
+    return $count;
+}
+
+dump(birthdayCakeCandles([3, 2, 1, 3]));
+
+
+//convirtiendo la hora de 12 horas a 24 horas
+function timeConversion($s) {
+    return date("H:i:s", strtotime($s));
+}
+
+dump(timeConversion("12:00:00PM"));
+
+//hacer una contraseña segura
+//su longitud es al menos 6
+//contiene al menos un caracter ingles en minusculas
+//Contiene al menos un carácter inglés en mayúsculas.
+//Contiene al menos un carácter especial. Los caracteres especiales son: !@#$%^&*()-+
+//debe debolver un entero que represente la cantidad de caracteres que deben agregarse a hacer la contraseña segura
+//n es la longitud de la contraseña
+//password es la contraseña
+function minimumNumber($n, $password){
+    $count = 0;
+    $lower = preg_match("/[a-z]/", $password);
+    $upper = preg_match("/[A-Z]/", $password);
+    $digit = preg_match("/[0-9]/", $password);
+    $special = preg_match("/[!@#$%^&*()\-+]/", $password);
+    if(!$lower){
+        $count++;
+    }
+    if(!$upper){
+        $count++;
+    }
+    if(!$digit){
+        $count++;
+    }
+    if(!$special){
+        $count++;
+    }
+    return max($count, 6 - $n);
+}
+
+dump(minimumNumber(3, "Ab1"));
