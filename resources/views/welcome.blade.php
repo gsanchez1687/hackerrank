@@ -66,48 +66,29 @@ function calculateSum($data){
     return array_sum($numbers);
 }
 $data = "0.4366166635587;0.50621859147503;-1074;0.4860623178473;0.48974117519788;0.22422161895047;0.06429465024932;0.91309437011978;1181;0.32756097862849";
-dd(calculateSum(calculateSum($data)));
+dump(calculateSum(calculateSum($data)));
 
 
-/*
- * Imagine, you are working on the very beginning prototype of the “Trap Finder” 
- * game engine (some kind of Minesweeper-like game).
- * 
- * iven an existing object “$trap”, an instance of “Trap” class, with a lot of 
- * unknown properties of various types inside, but like any kind of other 
- * “generic traps” objects, this one also extends a known “GenericTrap” abstract class. 
- * 
- * Requirements:
- *   - Create a new class “TrapFinder” which extends an existing abstract 
- *     class “AbstractTrapFinder” and complete the method “doSomething” 
- *     with all the required functionality, to “disarm” a trap passed on 
- *     it as “$trap” parameter.
- *   - When disarm happens, the method “doSomething” should return a total count 
- *     of all the properties inside a “$trap” object, to calculate a total score.
- * 
- * Constraints:
- *   - Trap disarms, when a method “disarm” is called.
- */
-abstract class AbstractTrapFinder
-{
-    abstract public function doSomething($trap);
-}
+//Dados cinco enteros positivos, encuentre los valores mínimo y máximo que se pueden calcular sumando exactamente cuatro de los cinco enteros. A continuación, imprima los respectivos valores mínimo y máximo como una sola línea de dos enteros largos separados por espacios.
+//ejemplo: [1, 3, 5, 7, 9] => 16 24
+//la suma minima es 1 + 3 + 5 + 7 = 16
+//la suma maxima es 3 + 5 + 7 + 9 = 24
 
-class TrapFinder extends AbstractTrapFinder
-{
-    public function doSomething($trap)
-    {
-        $trap->disarm();
-        return count(get_object_vars($trap));
+function miniMaxSum($arr) {
+    $min = 1;
+    $max = 1;
+    $sum = 0;
+    foreach($arr as $value){
+        $sum += $value;
+        if($value < $min){
+            $min = $value;
+        }
+        if($value > $max){
+            $max = $value;
+        }
     }
+    dump($min);
+    return ($sum - $max) . " " . ($sum - $min);
 }
 
-abstract class GenericTrap
-{
-    abstract public function disarm();
-}
-
-$trap = new Trap();
-$trapFinder = new TrapFinder();
-$resp =$trapFinder->doSomething($trap);
-dump($resp);
+dump(miniMaxSum([1, 2, 3, 4, 5]));
