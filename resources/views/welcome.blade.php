@@ -60,4 +60,54 @@ dump(diagonalDifference([[11, 2, 4], [4, 5, 6], [10, 8, -12]]));
 
 
 
-//Se le da una matriz 2D de dimensión  y un entero positivo . Tienes que rotar los tiempos de la matriz e imprimir la matriz resultante. La rotación debe ser en sentido contrario a las agujas del reloj. Rotación de un  matrix se representa mediante la siguiente figura. Tenga en cuenta que en una rotación, debe desplazar los elementos en un solo paso.
+//cree una funcion "calculateSum" que acepte un unico parametro de cadena, $data, una lista de numeros delimitados por punto y coma(;). Devolver la suma
+function calculateSum($data){
+    $numbers = explode(";", $data);
+    return array_sum($numbers);
+}
+$data = "0.4366166635587;0.50621859147503;-1074;0.4860623178473;0.48974117519788;0.22422161895047;0.06429465024932;0.91309437011978;1181;0.32756097862849";
+dd(calculateSum(calculateSum($data)));
+
+
+/*
+ * Imagine, you are working on the very beginning prototype of the “Trap Finder” 
+ * game engine (some kind of Minesweeper-like game).
+ * 
+ * iven an existing object “$trap”, an instance of “Trap” class, with a lot of 
+ * unknown properties of various types inside, but like any kind of other 
+ * “generic traps” objects, this one also extends a known “GenericTrap” abstract class. 
+ * 
+ * Requirements:
+ *   - Create a new class “TrapFinder” which extends an existing abstract 
+ *     class “AbstractTrapFinder” and complete the method “doSomething” 
+ *     with all the required functionality, to “disarm” a trap passed on 
+ *     it as “$trap” parameter.
+ *   - When disarm happens, the method “doSomething” should return a total count 
+ *     of all the properties inside a “$trap” object, to calculate a total score.
+ * 
+ * Constraints:
+ *   - Trap disarms, when a method “disarm” is called.
+ */
+abstract class AbstractTrapFinder
+{
+    abstract public function doSomething($trap);
+}
+
+class TrapFinder extends AbstractTrapFinder
+{
+    public function doSomething($trap)
+    {
+        $trap->disarm();
+        return count(get_object_vars($trap));
+    }
+}
+
+abstract class GenericTrap
+{
+    abstract public function disarm();
+}
+
+$trap = new Trap();
+$trapFinder = new TrapFinder();
+$resp =$trapFinder->doSomething($trap);
+dump($resp);
